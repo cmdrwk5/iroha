@@ -15,6 +15,7 @@
  * limitations under the License.
  */
 
+#include "model/sha3_hash.hpp"
 #include "ametsuchi/impl/redis_block_query.hpp"
 #include "ametsuchi/impl/block_storage.hpp"
 #include "cryptography/ed25519_sha3_impl/internal/sha3_hash.hpp"
