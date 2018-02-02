@@ -15,11 +15,11 @@
  * limitations under the License.
  */
 
-#include "interactive/interactive_transaction_cli.hpp"
-
 #include <fstream>
+
 #include "client.hpp"
 #include "grpc_response_handler.hpp"
+#include "interactive/interactive_transaction_cli.hpp"
 #include "model/commands/append_role.hpp"
 #include "model/commands/create_role.hpp"
 #include "model/commands/detach_role.hpp"
@@ -29,8 +29,10 @@
 #include "model/converters/json_common.hpp"
 #include "model/converters/json_transaction_factory.hpp"
 #include "model/converters/pb_common.hpp"
+#include "model/model_crypto_provider.hpp"  // for ModelCryptoProvider
 #include "model/permissions.hpp"
 #include "model/sha3_hash.hpp"
+#include "parser/parser.hpp"  // for parser::ParseValue
 
 using namespace iroha::model;
 
@@ -245,7 +247,9 @@ namespace iroha_cli {
       auto create_account = parser::parseValue<bool>(params[8]);
 
       if (not(read_self and edit_self and read_all and transfer_receive
-              and asset_create and create_domain and roles
+              and asset_create
+              and create_domain
+              and roles
               and create_account)) {
         std::cout << "Wrong format for permission" << std::endl;
         return nullptr;
